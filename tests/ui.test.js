@@ -244,5 +244,34 @@ test("Verify that All Info is displayed correctly ", async ({page}) =>{
     expect(visibleBooks.length).toBeGreaterThan(0);
 })
 
+test.only("Verify if Edit and Delete buttons are not visible for Non-Creator", async ({page}) =>{
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await Promise.all([
+        page.click('input[type="submit"]'),
+        page.waitForURL('http://localhost:3000/catalog')
+    ])
+
+    await page.waitForSelector('.navbar a[href="/profile"]')
+    await page.click('.navbar a[href="/profile"]')
+    await page.waitForURL('http://localhost:3000/profile')
+    await page.waitForSelector('#my-books-page')
+    const allMyBooksUrl = await page.$$eval('.my-books-list li a', e=>e.map((a)=>a.href))
+
+    await page.waitForSelector('.navbar a[href="/catalog"]')
+    await page.click('.navbar a[href="/catalog"]')
+    await page.waitForURL('http://localhost:3000/catalog')
+    const allBooksUrl = await page.$$eval(".other-books-list li a", e=>e.map((a)=>a.href));
+   
+    const notMyBookUrl = allBooksUrl.filter(x => !allMyBooksUrl.includes(x)).shift();
+
+    await page.goto(notMyBookUrl);
+    await page.waitForSelector('#details-page')
+
+    const editAnddeleteLinks = await page.$$('.actions a') 
+    expect(editAnddeleteLinks.length).toBeLessThanOrEqual(1);
+
+})
 
 
