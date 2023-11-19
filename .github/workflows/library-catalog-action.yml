@@ -20,4 +20,4 @@ jobs:
     - name: Build the app
       run: npm install
     - name: Run test
-      run: npm test
+      run: npx playwright test
