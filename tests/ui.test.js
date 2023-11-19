@@ -244,7 +244,7 @@ test("Verify that All Info is displayed correctly ", async ({page}) =>{
     expect(visibleBooks.length).toBeGreaterThan(0);
 })
 
-test.only("Verify if Edit and Delete buttons are not visible for Non-Creator", async ({page}) =>{
+test("Verify if Edit and Delete buttons are not visible for Non-Creator", async ({page}) =>{
     await page.goto('http://localhost:3000/login');
     await page.fill('#email', 'peter@abv.bg');
     await page.fill('#password', '123456');
