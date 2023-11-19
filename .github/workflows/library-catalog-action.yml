@@ -20,7 +20,7 @@ jobs:
     - name: Build the app
       run: npm install
     - name: Start server
-      run: npm start-server
+      run: node server/server.js"
     - name: Install playwright
       run: npx playwright install
     - name: Run test
