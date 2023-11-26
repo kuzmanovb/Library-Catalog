@@ -38,3 +38,13 @@ jobs:
         with:
           service-id: ${{ secrets.BACKEND_KEY }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+
+  deploy-frontend:
+    needs: deploy-server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.FRONTEND_KEY }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
