@@ -21,9 +21,9 @@ jobs:
     - name: Build the app
       run: npm install
     - name: Start server
-      run: npm start-serve &
+      run: npm run start-serve &
     - name: Start frontend
-      run: npm start-frontend
+      run: npm run start-frontend &
     - name: Install playwright
       run: npx playwright install
     - name: Run test
